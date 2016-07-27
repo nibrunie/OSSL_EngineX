@@ -9,7 +9,10 @@ build/engine_ex.so: build/e_ex.o
 
 build: build/engine_ex.so
 
+load:
+	openssl engine -t -c `pwd`/build/engine_ex.so 
+
 clean: 
 	rm build/engine_ex.so build/e_ex.o
 
-.PHONY: clean
+.PHONY: clean load
