@@ -41,6 +41,36 @@ static const EVP_MD digest_sha1 = {
   NULL             /* control function */
 };
 
+#if 0
+static int init_key (EVP_CIPHER_CTX *ctx, const unsigned char* key, 
+              const unsigned char *iv, int enc)
+{
+  EVP_CipherInit_ex
+  return 1;
+}
+
+static int do_cipher(EVP_CIPHER_CTX *ctx, unsigned char* out,
+                     const unsigned char* iv, size_t inl)
+{
+  return 1;
+}
+
+static const EVP_CIPHER engine_X_cipher_aes_gcm = {
+  NID_aes_256_gcm,
+  16, /* block size */
+  32, /* default key len */
+  0, /* flags */
+  init_key, /* init key */
+  do_cipher, /* do_cipher */
+  EVP_CIPHER_CTX_cleanup, /* context cleanup */
+  sizeof(EVP_CIPHER_CTX), /* ctx_size */
+  EVP_CIPHER_set_asn1_iv, /* set_asn1_parameters */
+  EVP_CIPHER_get_asn1_iv, /* get_asn1_parameters */
+  EVP_CIPHER_CTX_ctrl,
+  NULL /** app_data */
+};
+#endif 
+
 
 static digest_nids[] = {NID_sha1, 0};
 
