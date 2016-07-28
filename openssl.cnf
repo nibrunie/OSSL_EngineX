@@ -1,0 +1,11 @@
+openssl_conf            = openssl_def
+[openssl_def]
+engines = engine_section
+[engine_section]
+engine_x = engine_x_section
+[engine_x_section]
+engine_id = engineX
+dynamic_path = ${ENV::PWD}/build/engine_ex.so 
+default_algorithms = ALL
+init = 1
+

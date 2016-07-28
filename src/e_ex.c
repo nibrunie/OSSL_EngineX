@@ -41,6 +41,32 @@ static const EVP_MD digest_sha1 = {
   NULL             /* control function */
 };
 
+
+
+static digest_nids[] = {NID_sha1, 0};
+
+int digest_selector(ENGINE* e, const EVP_MD** digest, const int** nids, int nid)
+{
+  int ok = 1;
+  if (!digest) {
+    /* expected to return the list of supported NIDs */
+    *nids = digest_nids;
+    return (sizeof(digest_nids) - 1) / sizeof(digest_nids[0]);
+  }
+
+  /** Request for a specific digest */
+  switch (nid) {
+  case NID_sha1:
+    *digest = &digest_sha1;
+    break;
+  default:
+    ok = 0;
+    *digest = NULL;
+    break;
+  }
+  return ok;
+}
+
 #if 0
 static int init_key (EVP_CIPHER_CTX *ctx, const unsigned char* key, 
               const unsigned char *iv, int enc)
@@ -70,31 +96,6 @@ static const EVP_CIPHER engine_X_cipher_aes_gcm = {
   NULL /** app_data */
 };
 #endif 
-
-
-static digest_nids[] = {NID_sha1, 0};
-
-int digest_selector(ENGINE* e, const EVP_MD** digest, const int** nids, int nid)
-{
-  int ok = 1;
-  if (!digest) {
-    /* expected to return the list of supported NIDs */
-    *nids = digest_nids;
-    return (sizeof(digest_nids) - 1) / sizeof(digest_nids[0]);
-  }
-
-  /** Request for a specific digest */
-  switch (nid) {
-  case NID_sha1:
-    *digest = &digest_sha1;
-    break;
-  default:
-    ok = 0;
-    *digest = NULL;
-    break;
-  }
-  return ok;
-}
 
 static int bind(ENGINE* e, const char* id) 
 {
