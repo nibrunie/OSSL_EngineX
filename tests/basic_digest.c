@@ -9,8 +9,6 @@ int main(void)
 {
   // initializing OpenSSL library
   OPENSSL_load_builtin_modules();
-  //OpenSSL_add_ssl_algorithms();
-  //SSL_load_error_strings(); 
   ENGINE_load_dynamic();
 
   // building OpenSSL's configuration file path
